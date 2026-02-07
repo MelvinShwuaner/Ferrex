@@ -75,7 +75,9 @@ pub struct NativeLibrary {
 impl NativeLibrary {
     /// gets a function pointer
     #[cfg(not(target_os = "windows"))]
-    pub fn sym<T>(&self, name_str: &str) -> Result<NativeMethod<T>, LibError> {
+    pub fn sym<T>(&self, name_strr: &str) -> Result<NativeMethod<T>, LibError> {
+        let name_str = get(name_strr);
+        println!("export: {}", name_str);
         let display_string = name_str.to_string();
 
         let name = std::ffi::CString::new(name_str).map_err(|_| LibError::FailedToCreateCString)?;
