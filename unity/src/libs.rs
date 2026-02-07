@@ -93,6 +93,7 @@ impl NativeLibrary {
     #[cfg(target_os = "windows")]
     pub fn sym<T>(&self, name_strr: &str) -> Result<NativeMethod<T>, LibError> {
         let name_str = get(name_strr);
+        println!("export: {}", name_str);
         use std::ffi::CString;
 
         let display_string = name_str.to_string();
