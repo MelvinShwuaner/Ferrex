@@ -35,7 +35,7 @@ pub fn get_value(key: &str) -> Option<&str> {
         .map(|(_, v)| *v)
 }
 
-pub fn get(key: &str) -> &str {
+pub fn GetExport(key: &str) -> &str {
     get_value(key).unwrap_or(key)
 }
 /// possible library loading errors
@@ -76,7 +76,7 @@ impl NativeLibrary {
     /// gets a function pointer
     #[cfg(not(target_os = "windows"))]
     pub fn sym<T>(&self, name_strr: &str) -> Result<NativeMethod<T>, LibError> {
-        let name_str = get(name_strr);
+        let name_str = GetExport(name_strr);
         let display_string = name_str.to_string();
 
         let name = std::ffi::CString::new(name_str).map_err(|_| LibError::FailedToCreateCString)?;
@@ -93,7 +93,7 @@ impl NativeLibrary {
     /// gets a function pointer
     #[cfg(target_os = "windows")]
     pub fn sym<T>(&self, name_strr: &str) -> Result<NativeMethod<T>, LibError> {
-        let name_str = get(name_strr);
+        let name_str = GetExport(name_strr);
         use std::ffi::CString;
 
         let display_string = name_str.to_string();
