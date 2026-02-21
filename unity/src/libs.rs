@@ -35,7 +35,7 @@ pub fn get_value(key: &str) -> Option<&str> {
         .map(|(_, v)| *v)
 }
 
-fn get(key: &str) -> &str {
+pub fn get(key: &str) -> &str {
     get_value(key).unwrap_or(key)
 }
 /// possible library loading errors
