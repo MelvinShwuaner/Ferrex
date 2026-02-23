@@ -29,7 +29,7 @@ use std::{
 use thiserror::Error;
 static export_resolver: Mutex<Option<fn(&str) -> &str>> = Mutex::new(None);
 pub fn SetExportResolver(resolver: fn(&str)->&str ) {
-    export_resolver.lock().unwrap() = resolver;
+    export_resolver.lock().unwrap() = Some(resolver);
 }
 pub fn GetExport(key: &str) -> &str {
     if let Some(f) = *export_resolver.lock().unwrap() {
